@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>러닝게임</title>
+        <meta name="description" content="웹버전 미니게임"/>
+        <meta name="keywords" content="미니게임"/>
+        <meta name="author" content="G.bak"/>
+        <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+            integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"/>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+            integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"/>
+        <link rel="stylesheet" href="style.css"/>
+        <!-- 구글 폰트 -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossorigin="crossorigin">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Dokdo&family=Noto+Sans+KR:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Orbit&family=Orbitron:wght@400..900&display=swap"
+            rel="stylesheet">
+
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: "Noto Sans KR", sans-serif;
+                font-optical-sizing: auto;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .inner {
+                width: 650px;
+                height: 500px;
+                margin-top: 3rem;
+                margin-left: auto;
+                margin-right: auto;
+                border: 5px solid black;
+                overflow: hidden;
+                position: relative;
+                /* game-container의 offsetLeft 값을 초기화하기 위해 사용 */
+            }
+
+            .start-menu-container {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 300px;
+                height: 400px;
+                border: 5px solid black;
+                background-color: #e0e0e0;
+                z-index: 10000;
+            }
+
+            .start-menu-title-container {
+                width: 100%;
+                height: 15%;
+                border-bottom: 5px solid black;
+                font-size: 1.5rem;
+                font-weight: 500;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .start-menu-description {
+                width: 100%;
+                height: 35%;
+                border-bottom: 5px solid black;
+                font-size: 0.9rem;
+                line-height: 19px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                font-weight: 500;
+            }
+
+            .start-menu-start-button {
+                width: 100%;
+                height: 24%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .start-menu-start-button-text {
+                width: 90%;
+                height: 75%;
+                border: 3px solid black;
+                font-size: 1.5rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                font-weight: 500;
+            }
+
+            .start-menu-start-button-text:hover {
+                border: 4px solid black;
+                background-color: #FAFAFA;
+            }
+
+            .start-menu-back-button {
+                width: 100%;
+                height: 26%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-top: 5px solid black;
+            }
+
+            .start-menu-back-button-text {
+                width: 90%;
+                height: 75%;
+                border: 3px solid black;
+                font-size: 1.5rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                font-weight: 500;
+            }
+
+            .start-menu-back-button-text:hover {
+                border: 4px solid black;
+                background-color: #FAFAFA;
+            }
+
+            .end-menu-container {
+                position: absolute;
+                top: -50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 300px;
+                border: 5px solid black;
+                background-color: #e0e0e0;
+                z-index: 10001;
+            }
+
+            .end-menu-title-container {
+                width: 100%;
+                height: 60px;
+                text-align: center;
+                line-height: 55px;
+                font-size: 1.5rem;
+                border-bottom: 5px solid black;
+                font-weight: 500;
+            }
+
+            .end-menu-result-container {
+                width: 100%;
+                height: 140px;
+                border-bottom: 5px solid black;
+                display: flex;
+            }
+
+            .end-menu-result-text {
+                width: 40%;
+                height: 100%;
+                text-align: center;
+                line-height: 130px;
+                font-size: 1.3rem;
+                border-right: 5px solid black;
+                font-weight: 500;
+            }
+
+            .end-menu-result-point-text {
+                width: 60%;
+                height: 100%;
+                font-size: 2.5rem;
+                font-weight: 500;
+                text-align: center;
+                line-height: 130px;
+                color: #66e616;
+            }
+
+            .end-menu-restart {
+                width: 100%;
+                height: 85px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-bottom: 5px solid black;
+            }
+
+            .end-menu-restart-text {
+                width: 85%;
+                height: 75%;
+                text-align: center;
+                line-height: 50px;
+                font-size: 1.3rem;
+                font-weight: 500;
+                border: 3px solid black;
+                cursor: pointer;
+            }
+
+            .end-menu-restart-text:hover {
+                border: 4px solid black;
+                background-color: #FAFAFA;
+            }
+
+            .end-menu-game-over {
+                width: 100%;
+                height: 80px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .end-menu-game-over-text {
+                width: 85%;
+                height: 75%;
+                text-align: center;
+                line-height: 50px;
+                font-size: 1.3rem;
+                font-weight: 500;
+                border: 3px solid black;
+                cursor: pointer;
+            }
+
+            .end-menu-game-over-text:hover {
+                border: 4px solid black;
+                background-color: #FAFAFA;
+            }
+
+            .game-container {
+                position: relative;
+                width: 100%;
+                height: 73%;
+                background-color: #bdbdbd;
+                background-image: url("image/background.jpg");
+                background-size: cover;
+            }
+
+            .character {
+                position: absolute;
+                bottom: 0;
+                left: 1%;
+                z-index: 100;
+                width: 15%;
+                height: auto;
+                /* height: 150px; */
+                transition-property: bottom;
+                transition-timing-function: ease;
+            }
+
+            .jump-animation-start {
+                bottom: 100px;
+            }
+            .jump-animation-end {
+                bottom: 0;
+            }
+            .super-jump-animation-start {
+                bottom: 170px;
+            }
+            .super-jump-animation-end {
+                bottom: 0;
+            }
+
+            .button-container {
+                width: 100%;
+                height: 27%;
+                background-color: lightskyblue;
+                border-top: 5px solid black;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .button {
+                width: 23%;
+                height: 85%;
+                border: 5px solid orange;
+            }
+
+            .button#back-button::after {
+                content: "\f104";
+                font-family: FontAwesome;
+                color: black;
+                font-size: 3.5rem;
+            }
+
+            .button#front-button::after {
+                content: "\f105";
+                font-family: FontAwesome;
+                color: black;
+                font-size: 3.5rem;
+            }
+
+            .button#up-button::after {
+                content: "\f106";
+                font-family: FontAwesome;
+                color: black;
+                font-size: 3.5rem;
+            }
+
+            .button#double-up-button::after {
+                content: "\f102";
+                font-family: FontAwesome;
+                color: black;
+                font-size: 3.5rem;
+            }
+
+            .item {
+                width: 90px;
+                height: 90px;
+            }
+
+            .item-text-plus {
+                position: absolute;
+                /* position: absolute 인 경우 텍스트 가운데 정렬 방법 */
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 2.7rem;
+                font-family: "Orbitron", sans-serif;
+                font-optical-sizing: auto;
+                font-weight: 600;
+                font-style: normal;
+                color: #76FF03;
+                padding: 0.25rem;
+            }
+
+            .item-text-minus {
+                position: absolute;
+                /* position: absolute 인 경우 텍스트 가운데 정렬 방법 */
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 2.7rem;
+                font-family: "Orbitron", sans-serif;
+                font-optical-sizing: auto;
+                font-weight: 600;
+                font-style: normal;
+                color: #FF6F00;
+                padding: 0.25rem;
+            }
+
+            /*
+.item-border-line {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 54px;
+    border: 1px solid #bdbdbd;
+}
+*/
+
+            .gun01 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/gun01.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 1s;
+                transition-timing-function: linear;
+            }
+
+            .pirate-ship01 {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/pirate-ship01.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 3s;
+                transition-timing-function: linear;
+            }
+
+            .sword01 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/sword01.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 5s;
+                transition-timing-function: linear;
+            }
+
+            .rum01 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/rum01.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 8s;
+                transition-timing-function: linear;
+            }
+
+            .telescope {
+                position: absolute;
+                top: 243px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/telescope.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 8.5s;
+                transition-timing-function: linear;
+            }
+
+            .treasure01 {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/treasure01.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 9.2s;
+                transition-timing-function: linear;
+            }
+
+            .map01 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/map01.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 12.2s;
+                transition-timing-function: linear;
+            }
+
+            .gallows01 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/gallows01.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 12.7s;
+                transition-timing-function: linear;
+            }
+
+            .cannon01 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/cannon01.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 13.2s;
+                transition-timing-function: linear;
+            }
+
+            .bomb01 {
+                position: absolute;
+                top: 243px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/bomb01.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 16.2s;
+                transition-timing-function: linear;
+            }
+
+            .pirate01 {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/pirate01.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 16.2s;
+                transition-timing-function: linear;
+            }
+
+            .key01 {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/key01.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 18.2s;
+                transition-timing-function: cubic-bezier(0.84,-0.01, 0.83, 0.39);
+            }
+
+            .bow-arrow01 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/bow-arrow.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 19.2s;
+                transition-timing-function: cubic-bezier(0.84,-0.01, 0.83, 0.39);
+            }
+
+            .crown01 {
+                position: absolute;
+                top: 243px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/crown.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 20.2s;
+                transition-timing-function: cubic-bezier(0.84,-0.01, 0.83, 0.39);
+            }
+
+            .cannon02 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/cannon02.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 23.2s;
+                transition-timing-function: linear;
+            }
+
+            .bomb02 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/bomb02.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 23.7s;
+                transition-timing-function: linear;
+            }
+
+            .kraken01 {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/kraken.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 25.7s;
+                transition-timing-function: linear;
+            }
+
+            .gun02 {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/gun02.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 26.2s;
+                transition-timing-function: linear;
+            }
+
+            .map02 {
+                position: absolute;
+                top: 243px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/map02.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 28.7s;
+                transition-timing-function: linear;
+            }
+
+            .skeleton {
+                position: absolute;
+                top: 243px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/skeleton.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 29s;
+                transition-timing-function: linear;
+            }
+
+            .key02 {
+                position: absolute;
+                top: 243px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/key02.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 30s;
+                transition-timing-function: linear;
+            }
+
+            .dragon01 {
+                position: absolute;
+                top: 243px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/dragon.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 30.3s;
+                transition-timing-function: linear;
+            }
+
+            .bomb03 {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/bomb03.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 32.2s;
+                transition-timing-function: linear;
+            }
+
+            .bomb04 {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/bomb03.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 32.7s;
+                transition-timing-function: linear;
+            }
+
+            .bomb05 {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/bomb03.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 33.2s;
+                transition-timing-function: linear;
+            }
+
+            .binoculars {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/binoculars.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 33.7s;
+                transition-timing-function: linear;
+            }
+
+            .cannon03 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/cannon03.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 34.2s;
+                transition-timing-function: linear;
+            }
+
+            .treasure02 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/treasure02.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 34.7s;
+                transition-timing-function: linear;
+            }
+
+            .cup {
+                position: absolute;
+                top: 243px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/cup.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 37.7s;
+                transition-timing-function: cubic-bezier(0.84,-0.01, 0.83, 0.39);
+            }
+
+            .book01 {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/book.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 39.2s;
+                transition-timing-function: linear;
+            }
+
+            .bomb06 {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/bomb04.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 39.5s;
+                transition-timing-function: linear;
+            }
+
+            .bomb07 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/bomb01.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 40s;
+                transition-timing-function: linear;
+            }
+
+            .bomb08 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/bomb01.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 40.3s;
+                transition-timing-function: linear;
+            }
+
+            .bomb09 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/bomb01.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 40.6s;
+                transition-timing-function: linear;
+            }
+
+            .bomb10 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/bomb01.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 40.9s;
+                transition-timing-function: linear;
+            }
+
+            .bomb11 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/bomb01.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 41.2s;
+                transition-timing-function: linear;
+            }
+
+            .diamond-ring {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/diamond-ring.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 43.2s;
+                transition-timing-function: linear;
+            }
+
+            .coin01 {
+                position: absolute;
+                top: 115px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/coin01.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 43.5s;
+                transition-timing-function: linear;
+            }
+
+            .axe01 {
+                position: absolute;
+                top: 235px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/axe01.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 43.8s;
+                transition-timing-function: linear;
+            }
+
+            .diamond {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/diamond.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 44.1s;
+                transition-timing-function: linear;
+            }
+
+            .harp {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/harp.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 44.4s;
+                transition-timing-function: linear;
+            }
+
+            .treasure03 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/treasure03.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 44.7s;
+                transition-timing-function: linear;
+            }
+
+            .axe02 {
+                position: absolute;
+                top: 243px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/axe02.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 45s;
+                transition-timing-function: linear;
+            }
+
+            .navy01 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/navy.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 45.3s;
+                transition-timing-function: linear;
+            }
+
+            .gun03 {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/gun03.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 45.6s;
+                transition-timing-function: linear;
+            }
+
+            .kraken02 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/kraken.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 45.9s;
+                transition-timing-function: linear;
+            }
+
+            .bomb12 {
+                position: absolute;
+                top: 243px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/bomb04.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 46.9s;
+                transition-timing-function: linear;
+            }
+
+            .treasure04 {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/treasure04.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 46.9s;
+                transition-timing-function: linear;
+            }
+
+            .bomb13 {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/bomb02.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 47.7s;
+                transition-timing-function: cubic-bezier(0.84,-0.01, 0.83, 0.39);
+            }
+
+            .bomb14 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/bomb02.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 48.7s;
+                transition-timing-function: cubic-bezier(0.84,-0.01, 0.83, 0.39);
+            }
+
+            .sword02 {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/sword02.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 49.7s;
+                transition-timing-function: cubic-bezier(0.84,-0.01, 0.83, 0.39);
+            }
+
+            .bomb15 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/bomb02.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 50.7s;
+                transition-timing-function: cubic-bezier(0.84,-0.01, 0.83, 0.39);
+            }
+
+            .bomb16 {
+                position: absolute;
+                top: 243px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/bomb02.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 51.2s;
+                transition-timing-function: linear;
+            }
+
+            .wanted {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/wanted.png");
+                background-size: cover;
+                transition-duration: 3s;
+                transition-property: all;
+                transition-delay: 51.7s;
+                transition-timing-function: cubic-bezier(0.84,-0.01, 0.83, 0.39);
+            }
+
+            .bomb17 {
+                position: absolute;
+                top: 243px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/bomb02.png");
+                background-size: cover;
+                transition-duration: 2s;
+                transition-property: all;
+                transition-delay: 53.1s;
+                transition-timing-function: linear;
+            }
+
+            .bomb18 {
+                position: absolute;
+                top: 243px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/bomb03.png");
+                background-size: cover;
+                transition-duration: 2.5s;
+                transition-property: all;
+                transition-delay: 55.8s;
+                transition-timing-function: linear;
+            }
+
+            .gallows02 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/gallows02.png");
+                background-size: cover;
+                transition-duration: 2.5s;
+                transition-property: all;
+                transition-delay: 55.8s;
+                transition-timing-function: linear;
+            }
+
+            .compass {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/compass.png");
+                background-size: cover;
+                transition-duration: 2.5s;
+                transition-property: all;
+                transition-delay: 55.8s;
+                transition-timing-function: linear;
+            }
+
+            .treasure05 {
+                position: absolute;
+                top: 243px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/treasure05.png");
+                background-size: cover;
+                transition-duration: 2.5s;
+                transition-property: all;
+                transition-delay: 56.2s;
+                transition-timing-function: linear;
+            }
+
+            .rum02 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/rum02.png");
+                background-size: cover;
+                transition-duration: 2.5s;
+                transition-property: all;
+                transition-delay: 56.2s;
+                transition-timing-function: linear;
+            }
+
+            .hook {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/hook.png");
+                background-size: cover;
+                transition-duration: 2.5s;
+                transition-property: all;
+                transition-delay: 56.2s;
+                transition-timing-function: linear;
+            }
+
+            .gun04 {
+                position: absolute;
+                top: 243px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/gun01.png");
+                background-size: cover;
+                transition-duration: 2.5s;
+                transition-property: all;
+                transition-delay: 56.6s;
+                transition-timing-function: linear;
+            }
+
+            .coin02 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/coin02.png");
+                background-size: cover;
+                transition-duration: 2.5s;
+                transition-property: all;
+                transition-delay: 56.6s;
+                transition-timing-function: linear;
+            }
+
+            .dragon02 {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/dragon.png");
+                background-size: cover;
+                transition-duration: 2.5s;
+                transition-property: all;
+                transition-delay: 56.6s;
+                transition-timing-function: linear;
+            }
+
+            .map03 {
+                position: absolute;
+                top: 243px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/map03.png");
+                background-size: cover;
+                transition-duration: 2.5s;
+                transition-property: all;
+                transition-delay: 57s;
+                transition-timing-function: linear;
+            }
+
+            .cannon04 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/cannon02.png");
+                background-size: cover;
+                transition-duration: 2.5s;
+                transition-property: all;
+                transition-delay: 57s;
+                transition-timing-function: linear;
+            }
+
+            .treasure06 {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/treasure01.png");
+                background-size: cover;
+                transition-duration: 2.5s;
+                transition-property: all;
+                transition-delay: 57s;
+                transition-timing-function: linear;
+            }
+
+            .crown02 {
+                position: absolute;
+                top: 243px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/crown.png");
+                background-size: cover;
+                transition-duration: 2.5s;
+                transition-property: all;
+                transition-delay: 57.4s;
+                transition-timing-function: linear;
+            }
+
+            .book02 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/book.png");
+                background-size: cover;
+                transition-duration: 2.5s;
+                transition-property: all;
+                transition-delay: 57.4s;
+                transition-timing-function: linear;
+            }
+
+            .pirate-ship03 {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/pirate-ship01.png");
+                background-size: cover;
+                transition-duration: 2.5s;
+                transition-property: all;
+                transition-delay: 57.4s;
+                transition-timing-function: linear;
+            }
+
+            .beer {
+                position: absolute;
+                top: 243px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/beer.png");
+                background-size: cover;
+                transition-duration: 2.5s;
+                transition-property: all;
+                transition-delay: 57.8s;
+                transition-timing-function: linear;
+            }
+
+            .bow-arrow02 {
+                position: absolute;
+                top: 110px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/bow-arrow.png");
+                background-size: cover;
+                transition-duration: 2.5s;
+                transition-property: all;
+                transition-delay: 57.8s;
+                transition-timing-function: linear;
+            }
+
+            .navy02 {
+                position: absolute;
+                top: 15px;
+                left: 650px;
+                z-index: 1;
+                background-image: url("image/navy.png");
+                background-size: cover;
+                transition-duration: 2.5s;
+                transition-property: all;
+                transition-delay: 57.8s;
+                transition-timing-function: linear;
+            }
+
+            .move-item {
+                left: -100px;
+            }
+        </style>
+    </head>
+    <body>
+        <section>
+            <div class="inner">
+                <div class="start-menu-container">
+                    <div class="start-menu-title-container">조작 설명</div>
+                    <div class="start-menu-description">
+                        <div>' ← ' = 뒤로 이동</div>
+                        <div>' → ' = 앞으로 이동</div>
+                        <div>' ↑ ' = 점프</div>
+                        <div>' ↟ ' = 슈퍼 점프</div>
+                        <div>다시 시작 = F5</div>
+                    </div>
+                    <div class="start-menu-start-button">
+                        <button type="button" class="start-menu-start-button-text">게임시작</button>
+                    </div>
+                    <div class="start-menu-back-button">
+                        <button type="button" class="start-menu-back-button-text">돌아가기</button>
+                    </div>
+                </div>
+                <div class="end-menu-container">
+                    <div class="end-menu-title-container">게임 결과</div>
+                    <div class="end-menu-result-container">
+                        <div class="end-menu-result-text">점수</div>
+                        <div class="end-menu-result-point-text"></div>
+                    </div>
+                    <div class="end-menu-restart">
+                        <button type="button" class="end-menu-restart-text">한판더</button>
+                    </div>
+                    <div class="end-menu-game-over">
+                        <button type="button" class="end-menu-game-over-text">게임종료</button>
+                    </div>
+                </div>
+                <div class="game-container">
+                    <!-- 캐릭터 요소 -->
+                    <img class="character" src="./image/character.png" alt="character-Loopy"></img>
+                    <!-- 아이템 요소 -->
+                    <div class="item gun01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+1</div>
+                        </div>
+                    </div>
+                    <div class="item pirate-ship01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item sword01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+1</div>
+                        </div>
+                    </div>
+                    <div class="item rum01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+2</div>
+                        </div>
+                    </div>
+                    <div class="item telescope">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+1</div>
+                        </div>
+                    </div>
+                    <div class="item treasure01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item map01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+2</div>
+                        </div>
+                    </div>
+                    <div class="item gallows01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+1</div>
+                        </div>
+                    </div>
+                    <div class="item cannon01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+1</div>
+                        </div>
+                    </div>
+                    <div class="item pirate01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb01">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item key01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item bow-arrow01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item crown01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item cannon02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+1</div>
+                        </div>
+                    </div>
+                    <div class="item bomb02">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item kraken01">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-5</div>
+                        </div>
+                    </div>
+                    <div class="item gun02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item map02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+2</div>
+                        </div>
+                    </div>
+                    <div class="item skeleton">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-5</div>
+                        </div>
+                    </div>
+                    <div class="item key02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item dragon01">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-5</div>
+                        </div>
+                    </div>
+                    <div class="item bomb03">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb04">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb05">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item binoculars">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item cannon03">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item treasure02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item cup">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item book01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+2</div>
+                        </div>
+                    </div>
+                    <div class="item bomb06">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb07">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb08">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb09">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb10">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb11">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item diamond-ring">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item coin01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item axe01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item diamond">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item harp">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item treasure03">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item axe02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item navy01">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-10</div>
+                        </div>
+                    </div>
+                    <div class="item gun03">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+1</div>
+                        </div>
+                    </div>
+                    <div class="item kraken02">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-5</div>
+                        </div>
+                    </div>
+                    <div class="item bomb12">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item treasure04">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item bomb13">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb14">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item sword02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb15">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb16">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item wanted">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb17">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb18">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item gallows02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+1</div>
+                        </div>
+                    </div>
+                    <div class="item compass">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item treasure05">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item rum02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+2</div>
+                        </div>
+                    </div>
+                    <div class="item hook">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item gun04">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+1</div>
+                        </div>
+                    </div>
+                    <div class="item coin02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item dragon02">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-5</div>
+                        </div>
+                    </div>
+                    <div class="item map03">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+2</div>
+                        </div>
+                    </div>
+                    <div class="item cannon04">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item treasure06">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item crown02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item book02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+2</div>
+                        </div>
+                    </div>
+                    <div class="item pirate-ship03">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item beer">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item bow-arrow02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item navy02">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-10</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 캐릭터 이동 버튼 요소 -->
+                <div class="button-container">
+                    <button class="button" id="back-button">
+                        <a id="arrow-left" alt="back"></a>
+                    </button>
+                    <button class="button" id="front-button">
+                        <a id="arrow-right" alt="right"></a>
+                    </button>
+                    <button class="button" id="up-button">
+                        <a id="arrow-up" alt="up"></a>
+                    </button>
+                    <button class="button" id="double-up-button">
+                        <a id="arrow-double-up" alt="double-up"></a>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <script>
+            // HTML 요소 가져오기 및 변수 선언
+            const character = document.querySelector('.character'); // 캐릭터 요소
+            const buttonBack = document.getElementById('back-button'); // '뒤로 이동' 버튼 요소
+            const buttonFront = document.getElementById('front-button'); // '앞으로 이동' 버튼 요소
+            const buttonUp = document.getElementById('up-button'); // '점프' 버튼 요소
+            const buttonDoubleUp = document.getElementById('double-up-button'); // '슈퍼 점프' 버튼 요소
+            const gameContainer = document.querySelector('.game-container'); // 게임 컨테이너 요소
+            const item = document.querySelectorAll('.item'); // 아이템 요소
+            const buttonStart = document.querySelector('.start-menu-start-button-text'); // '게임시작' 버튼 요소
+            const menuContainer = document.querySelector('.start-menu-container'); // 메튜 버튼 요소
+            const buttonReturn = document.querySelector('.start-menu-back-button-text'); // '돌아가기' 버튼 요소
+            const gameResult = document.querySelector('.end-menu-container'); // '게임 결과창' 요소
+            const buttonGameRestart = document.querySelector('.end-menu-restart-text'); // '한판더' 버튼 요소
+            const buttonEnd = document.querySelector('.end-menu-game-over-text'); // '게임종료' 버튼 요소
+            const pointResult = document.querySelector('.end-menu-result-point-text'); // 점수 결과 요소
+
+            // 이벤트 리스너 등록
+            buttonBack.addEventListener('click', moveBack);
+            buttonFront.addEventListener('click', moveFront);
+            buttonUp.addEventListener('click', moveUp);
+            buttonDoubleUp.addEventListener('click', moveDoubleUp);
+            buttonStart.addEventListener('click', moveItem);
+            buttonStart.addEventListener('click', menuVanish);
+            buttonReturn.addEventListener('click', moveHome);
+            buttonGameRestart.addEventListener('click', gameRestart);
+            buttonEnd.addEventListener('click', moveHome);
+
+            // 기타 초기화 코드
+            let intervalEnd; // 반복 종료 변수(캐릭터 이동)
+            let itemData = []; // 아이템 점수 저장 
+            let intervalStop; // 반복 종료 변수(캐릭터와 아이템이 만나면 사라지는 함수를 반복하는 함수를 종료하는 변수)
+            let point = 0; // 캐릭터가 획득한 아이템의 점수를 합산한 결과를 저장
+
+            // 함수 등록
+            repeatItemMatching (); // 아이템이 캐릭터와 부딪히면 사라지는 함수
+
+            // 캐릭터 '뒤로 이동' 버튼의 '클릭' 이벤트를 적용
+            function moveBack (event) {
+                let characterPosition = character.offsetLeft // 캐릭터의 x좌표값을 변수로 선언하여 캐릭터의 현재 위치를 데이터화
+                let characterMoveArea = gameContainer.offsetLeft // 배경 이미지의 x좌표값을 변수로 선언하여 배경 이미지의 현재 위치를 데이터화
+
+                // 캐릭터의 x좌표(왼쪽벽)는 배경 이미지의 x좌표(왼쪽벽)를 넘어야 한다는 조건을 걸어 배경 이미지를 이탈하는 현상을 방지
+                if (characterPosition -59 > characterMoveArea) { // characterPosition - 59를 먼저 계산하는 것은 캐릭터가 59px를 이동한 상태에서 다음 동작을 반복 수행하기 때문.
+                    character.style.left = (character.offsetLeft - 59) + 'px'; // 왼쪽으로 59px 이동
+                    console.log("뒤로 이동"); // 콘솔창의 확인하여 조건을 충족했는지 확인
+                    console.log("[캐릭터] " + "x좌표: " + (character.offsetLeft + character.offsetWidth/2) // 캐릭터의 몸통에서 반을 나눈 곳을 기준으로 좌표가 찍힘.(너비)
+                    + ", " +"y좌표: " + (character.offsetTop + character.offsetHeight/2)); // 캐릭터의 몸통에서 반을 나눈 곳을 기준으로 좌표가 찍힘. (높이)// 캐릭터의 몸통에서 반을 나눈 곳을 기준으로 좌표가 찍힘. (높이)
+                }
+            }
+
+            // 캐릭터 '앞으로 이동' 버튼의 '클릭' 이벤트를 적용
+            function moveFront (event) {
+                let characterPosition = character.offsetLeft + character.offsetWidth; // 캐릭터의 x좌표값을 변수로 선언하여 캐릭터의 현재 위치를 데이터화
+                let characterMoveArea = gameContainer.offsetLeft + gameContainer.offsetWidth; // 배경 이미지의 x좌표값을 변수로 선언하여 배경 이미지의 현재 위치를 데이터화// 배경 이미지의 x좌표값을 변수로 선언하여 배경 이미지의 현재 위치를 데이터화
+
+                // 캐릭터의 x좌표(오른쪽벽)는 배경 이미지의 x좌표(오른쪽벽)를 넘지 않아야 한다는 조건을 걸어 배경 이미지를 이탈하는 현상을 방지
+                if (characterPosition +59 < characterMoveArea) { // characterPosition - 59를 먼저 계산하는 것은 캐릭터가 59px를 이동한 상태에서 다음 동작을 반복 수행하기 때문.
+                    character.style.left = (character.offsetLeft + 59) + 'px'; // 오른쪽으로 59px 이동
+                    console.log("앞으로 이동"); // 콘솔창의 확인하여 조건을 충족했는지 확인
+                    console.log("[캐릭터] " + "x좌표: " + (character.offsetLeft + character.offsetWidth/2) // 캐릭터의 몸통에서 반을 나눈 곳을 기준으로 좌표가 찍힘.(너비)
+                    + ", " +"y좌표: " + (character.offsetTop + character.offsetHeight/2)); // 캐릭터의 몸통에서 반을 나눈 곳을 기준으로 좌표가 찍힘. (높이)
+                }
+            }
+
+            // 캐릭터 '점프' 버튼의 '클릭' 이벤트를 적용
+            function moveUp (event) {
+                character.classList.add('jump-animation-start'); // 점프 트랜지션 클래스 추가
+                character.style.transitionDuration = '0.5s'; // 점프 트랜지션의 지속 시간을 0.5초로 설정(개별적용)
+
+                let intervalEnd = setInterval(() => { // 0.1초마다 캐릭터의 위치값 확인
+                    // 캐릭터의 위치값 확인
+                    console.log("[캐릭터] " + "x좌표: " + (character.offsetLeft + character.offsetWidth/2)
+                    + ", " +"y좌표: " + (character.offsetTop + character.offsetHeight/2));
+                }, 100);
+
+                if (character.classList.contains('jump-animation-start') === true) // 캐릭터의 'jump-animation-start' 클래스가 추가 되었다면 'true'(참)
+                console.log("점프 성공"); // 콘솔창의 점프 트랜지션이 발생이 되면 성공 여부 표시
+                
+                // 모든 이동 버튼 비활성화 
+                buttonBack.setAttribute('disabled', true); // '뒤로 이동' 버튼 비활성화
+                buttonFront.setAttribute('disabled', true); // '앞으로 이동' 버튼 비활성화
+                buttonUp.setAttribute('disabled', true); // '점프' 버튼 비활성화
+                buttonDoubleUp.setAttribute('disabled', true); // '슈퍼 점프' 버튼 비활성화
+                disableEvent(); // 모든 버튼이 비활성화가 되면 배경색을 연한 회색으로 변경하는 함수 호출
+                console.log("모든 이동 버튼 0.5초 동안 비활성화 ") // 캐릭터의 다른 이동 버튼이 잠겼다는 것을 표시
+
+                setTimeout(function() { // 처음 점프 함수가 호출된 뒤 0.5초 뒤에 다른 함수 호출 
+                    character.classList.remove('jump-animation-start'); // 기존 점프만 하는 클래스를 제거
+
+                    if (character.classList.contains('jump-animation-start') === false) { // 캐릭터의 'jump-animation-start' 클래스가 제거 되었다면 'true'(참)
+                        console.log("착지 중"); // 콘솔창의 점프 트랜지션 클래스가 제거되면 자동적으로 동일한 트랜지션 효과가 적용된 채 원래대로 서서히 되돌아옴을 표시
+                    } else {
+                        console.log("'점프 클래스' 삭제에 실패했습니다."); // 만약 점프 클래스가 제거되지 않아 오류가 생기면 오류 메세지 표시 
+                    }
+                }, 500); // 500 = 0.5초
+
+                setTimeout(function() { // 처음 점프 함수가 호출된 뒤 0.9초 뒤에 다른 함수 호출 
+                    clearInterval(intervalEnd); // 모든 이동 버튼이 다시 활성화가 되기 전에 먼저 setInterval 멈추기(버튼을 연타할 시 반복이 중지가 안되는 현상을 방지)
+                }, 900); // 900 = 0.9초
+
+                setTimeout(function() { // 처음 점프 함수가 호출된 뒤 1초 뒤에 다른 함수 호출 
+                    console.log("착지 성공"); // 점프 트랜지션이 끝나고 캐릭터가 제자리로 돌아온 것을 콘솔창에 표시
+
+                    // transitionend 이벤트 핸들러 등록
+                    character.addEventListener('transitionend', function () { // 'transitionend' = '이벤트가 끝나면'을 의미
+                        clearInterval(intervalEnd); // 애니메이션이 끝나면 setInterval 멈추기
+                        });
+                    
+                    // 모든 이동 버튼 활성화 
+                    buttonBack.removeAttribute('disabled'); // '뒤로 이동' 버튼 활성화
+                    buttonFront.removeAttribute('disabled'); // '앞으로 이동' 버튼 활성화
+                    buttonUp.removeAttribute('disabled'); // '점프' 버튼 활성화
+                    buttonDoubleUp.removeAttribute('disabled'); // '슈퍼 점프' 버튼 활성화 
+                    ableEvent(); // 모든 이동 버튼이 활성화가 되면 배경색을 원래 색으로 변경하는 함수 호출
+                    console.log("모든 이동 버튼 활성화 ") // 캐릭터의 다른 이동 버튼이 다시 활성화가 된 것을 표시
+                }, 1000); // 1000 = 1초
+            }
+
+            // 캐릭터 '슈퍼 점프' 버튼의 '클릭' 이벤트를 적용
+            function moveDoubleUp (event) {
+                character.classList.add('super-jump-animation-start'); // '슈퍼 점프' 트랜지션 클래스 추가
+                character.style.transitionDuration = '0.65s'; // '슈퍼 점프' 트랜지션의 지속 시간을 0.65초로 설정
+                
+                let intervalEnd = setInterval(() => { // 0.1초마다 캐릭터의 위치값 확인
+                    // 캐릭터의 위치값 확인
+                    console.log("[캐릭터] " + "x좌표: " + (character.offsetLeft + character.offsetWidth/2) + ", " +"y좌표: " + (character.offsetTop + character.offsetHeight/2));
+                    }, 100);
+
+                if (character.classList.contains('super-jump-animation-start') === true) // 캐릭터의 'super-jump-animation-start' 클래스가 추가 되었다면 'true'(참)
+                console.log("점프 성공"); // 콘솔창의 '슈퍼 점프' 트랜지션이 발생이 되면 성공 여부 표시
+                
+                // 모든 이동 버튼 비활성화
+                buttonBack.setAttribute('disabled', true); // '뒤로 이동' 버튼 비활성화
+                buttonFront.setAttribute('disabled', true); // '앞으로 이동' 버튼 비활성화
+                buttonUp.setAttribute('disabled', true); // '점프' 버튼 비활성화
+                buttonDoubleUp.setAttribute('disabled', true); // '슈퍼 점프' 버튼 비활성화
+                disableEvent(); // 모든 버튼이 비활성화가 되면 배경색을 연한 회색으로 변경하는 함수 호출
+                console.log("모든 이동 버튼 0.65초 동안 비활성화 ") // 캐릭터의 다른 이동 버튼이 잠겼다는 것을 표시
+
+                setTimeout(function() { // 처음 점프 함수가 호출된 뒤 0.5초 뒤에 다른 함수 호출 
+                    character.classList.remove('super-jump-animation-start'); // 기존 '슈퍼 점프'만 하는 클래스를 제거
+                    if (character.classList.contains('super-jump-animation-start') === false) { // 캐릭터의 'super-jump-animation-start' 클래스가 제거 되었다면 'true'(참)
+                        console.log("착지 중"); // 콘솔창의 '슈퍼 점프' 트랜지션 클래스가 제거되면 자동적으로 동일한 트랜지션 효과가 적용된 채 원래대로 서서히 되돌아옴을 표시
+                    } else {
+                        console.log("'점프 클래스' 삭제에 실패했습니다."); // 만약 '슈퍼 점프' 클래스가 제거되지 않아 오류가 생기면 오류 메세지 표시 
+                    }
+                }, 650); // 650 = 6.5초
+
+                setTimeout(function() { // 처음 점프 함수가 호출된 뒤 1.1초 뒤에 다른 함수 호출 
+                    clearInterval(intervalEnd); // 모든 이동 버튼이 다시 활성화가 되기 전에 먼저 setInterval 멈추기(버튼을 연타할 시 반복이 중지가 안되는 현상을 방지)
+                }, 1100); // 1100 = 1.1초
+
+                setTimeout(function() { // 처음 점프 함수가 호출된 뒤 1.3초 뒤에 다른 함수 호출 
+                    console.log("착지 성공"); // '슈퍼 점프' 트랜지션이 끝나고 캐릭터가 제자리로 돌아온 것을 콘솔창에 표시
+
+                    // transitionend 이벤트 핸들러 등록
+                    character.addEventListener('transitionend', function () { // 'transitionend' = '이벤트가 끝나면'을 의미
+                        clearInterval(intervalEnd); // 애니메이션이 끝나면 setInterval 멈추기
+                        });
+
+                    // 모든 이동 버튼 활성화 
+                    buttonBack.removeAttribute('disabled'); // '뒤로 이동' 버튼 활성화
+                    buttonFront.removeAttribute('disabled'); // '앞으로 이동' 버튼 활성화
+                    buttonUp.removeAttribute('disabled'); // '점프' 버튼 활성화
+                    buttonDoubleUp.removeAttribute('disabled'); // '슈퍼 점프' 버튼 활성화
+                    ableEvent(); // 모든 이동 버튼이 활성화가 되면 배경색을 원래 색으로 변경하는 함수 호출
+                    console.log("모든 이동 버튼 활성화 ") // 캐릭터의 다른 이동 버튼이 다시 활성화가 된 것을 표시
+                }, 1300); // 1300 = 1.3초
+            }
+
+            // 아이템이 움직이는 함수 등록
+            function moveItem (event) {
+                console.log("게임시작"); // 아이템이 움직인 다는 것은 곧 게임이 시작된다는 것을 콘솔창의 표시
+                
+                for (let i = 0; i < item.length; i++) { // 아이템의 총 갯수만큼 반복 
+                    item[i].classList.add('move-item'); // 아이템의 트랜지션 클래스 추가
+                    if (item[i].classList.contains('move-item') === true) { // 아이템의 클래스가 추가됐는지 다시 확인한 다음 추가됐다면 true(참)
+                        itemMatching (); // 캐릭터와 아이템이 맞닿으면 아이템이 사라지는 함수를 호출
+
+                        let intervalEnd = setInterval(() => { // 0.1초마다 아이템의 위치값 확인
+                            if ((item[i].offsetLeft + item[i].offsetWidth/2) !== 0 && (item[i].offsetTop + item[i].offsetHeight) !== 0
+                            && (item[i].offsetLeft + item[i].offsetWidth/2) !== 695) { // 아이템이 멈춰있을 때는 반복을 하면 안된다는 조건
+                                // 아이템의 좌표값을 콘솔창의 표시 
+                                console.log("[아이템(" + item[i].textContent + ")] " + "x좌표: " + (item[i].offsetLeft + item[i].offsetWidth/2) + ", " + "y좌표: " + (item[i].offsetTop + item[i].offsetHeight));
+                            } 
+
+                            if (item[i].style.display === 'none' || item[i].offsetLeft + item[i].offsetWidth <= 0) { 
+                                clearInterval(intervalEnd); // 아이템이 사라지거나 아이템이 배경 이미지 밖으로 나가면 반복 종료
+                            }
+                        }, 100);
+                    }
+                }
+            }
+
+            // 캐릭터와 아이템이 맞닿으면 아이템이 사라지는 함수 등록
+            function itemMatching () { 
+                console.log('아이템이 사라지는 함수를 호출합니다.');
+                for (let i = 0; i < item.length; i++) { // 아이템의 총 갯수만큼 반복 
+                    if (parseInt(character.offsetLeft) < parseInt(item[i].offsetLeft) + parseInt(item[i].offsetWidth) // 'item'이 캐릭터를 완전히 지나치면 안된다.(캐릭터의 뒷부분과 조금이라도 닿아야 한다.)
+                        && parseInt(character.offsetLeft) + parseInt(character.offsetWidth) > parseInt(item[i].offsetLeft) // 'item'이 캐릭터의 맨 앞부분과 닿으면 삭제 
+                        && parseInt(character.offsetTop) < parseInt(item[i].offsetTop) + parseInt(item[i].offsetHeight) // 'item'이 캐릭터를 완전히 지나치면 안된다.(캐릭터의 밑부분과 조금이라도 닿아야 한다.)
+                        && parseInt(character.offsetTop) + parseInt(character.offsetHeight) > parseInt(item[i].offsetTop)) { // 'item'이 캐릭터의 윗 앞부분과 닿으면 삭제 
+                            let itemValue = parseInt(item[i].textContent); // 아이템의 텍스트 값을 저장할 변수를 선언한 뒤 'parseInt'를 사용하여 숫자 값으로 저장
+                            itemData.push(itemValue); // 빈 배열의 아이템들의 각 텍스트값을 차례로 넣는다.
+                            // console.log(itemData);
+                            point += itemValue; // 'itemValue' 변수에는 각 아이템들의 텍스트값, 즉 숫자가 차례로 하나씩만 저장이 될수 있고, 'point'라는 변수에 하나씩 합산된 결과가 저장된다.
+                            item[i].style.display = 'none'; // 조건에 해당되면 아이템이 사라지게 함
+                            console.log("아이템(" + item[i].textContent + ")" +" 을 먹었습니다."); // 아이템이 사라지는 것을 '먹었다'라고 표현함
+                    }
+                }   
+            }
+
+            // 아이템이 사라지는 함수를 0.1초마다 반복하는 함수를 등록하고 맨 상단에 먼저 호출시킨다.
+            function repeatItemMatching () {
+                intervalStop = setInterval(itemMatching, 100); // 전역 변수에 let으로 선언된 '반복 종료' 변수에 'setInterval'을 하나만 사용할 경우 let을 빼고 반복을 적용한다.
+            }
+
+            // 게임 시작 전 로딩되는 시작 메뉴의 '게임 시작' 버튼의 'click' 이벤트를 적용
+            function menuVanish (event) {
+                menuContainer.style.display ='none'; // 메뉴창을 숨김 처리
+
+                setTimeout(() => { // 함수가 호출이 되고 60초 후에 결과창을 표시, 게임이 종료 되었다는 것을 알림
+                    clearInterval(intervalStop); // 아이템이 사라지는 함수를 반복한 것을 종료
+                    gameResult.style.top = '50%'; // 기존 top 값이 -50%로 되어있어 히든 처리되고 있던 결과창을 아래로 내려서 보이게 함.
+                    pointResult.innerText = parseInt(point); // 합산된 점수는 숫자로 변환되어 지정된 클래스의 텍스트로 표시되게 함.
+                }, 60000); // 60000 = 60초
+            }
+
+            // 결과창에 있는 '한번더' 버튼의 '클릭' 이벤트를 적용
+            function gameRestart(event) { 
+                location.href = 'minigame.html'; // 클릭 시 미니게임 초기 화면을 돌아감
+            }
+
+            // 시작 메뉴와 결과창에 있는 '돌아가기' 버튼과 '게임종료' 버튼의 '클릭' 이벤트를 적용
+            function moveHome(event) { 
+                location.href = './index.html'; // 클릭 시 홈화면 페이지로 이동
+            }
+
+            // 캐릭터 이동 버튼이 비활성화가 되면 배경색이 연한 회색으로 변경하는 함수를 등록
+            function disableEvent() { 
+                buttonBack.style.backgroundColor = '#d6d5d5';
+                buttonFront.style.backgroundColor = '#d6d5d5';
+                buttonUp.style.backgroundColor = '#d6d5d5';
+                buttonDoubleUp.style.backgroundColor = '#d6d5d5';
+            }
+
+            // 캐릭터 이동 버튼이 활성화가 되면 배경색이 원래 색으로 변경하는 함수를 등록
+            function ableEvent() {
+                buttonBack.style.backgroundColor = '';
+                buttonFront.style.backgroundColor = '';
+                buttonUp.style.backgroundColor = '';
+                buttonDoubleUp.style.backgroundColor = '';
+            }
+        </script>
+    </body>
+</html>
