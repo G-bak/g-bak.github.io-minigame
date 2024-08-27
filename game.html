@@ -581,9 +581,9 @@
             // 이벤트 리스너 등록
             document.addEventListener('keydown', moveCharacter);
             fireButton.addEventListener('click', moveMissile);
-            buttonReturn.addEventListener('click', moveHome);
+            buttonReturn.addEventListener('click', moveindex);
             buttonGameRestart.addEventListener('click', gameRestart);
-            buttonEnd.addEventListener('click', moveHome);
+            buttonEnd.addEventListener('click', moveindex);
             buttonStart.addEventListener('click', moveItem);
             buttonStart.addEventListener('click', menuVanish);
             buttonStart.addEventListener('click', repeatCharacterVanish);
@@ -720,7 +720,7 @@
 
             // 시작 메뉴와 결과창에 있는 '돌아가기' 버튼과 '게임종료' 버튼의 '클릭' 이벤트를 적용
             function moveHome(event) { // 홈화면으로 이동하는 함수
-                location.href = './home.html'; // 클릭 시 홈화면 페이지로 이동
+                location.href = './index.html'; // 클릭 시 홈화면 페이지로 이동
             }
         </script>
     </body>
