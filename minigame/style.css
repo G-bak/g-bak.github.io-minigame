@@ -1,0 +1,1279 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Noto Sans KR", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.inner {
+    width: 650px;
+    height: 500px;
+    margin-top: 3rem ;
+    margin-left: auto;
+    margin-right: auto;
+    border: 5px solid black;
+    overflow: hidden;
+    position: relative; /* game-container의 offsetLeft 값을 초기화하기 위해 사용 */ 
+}
+
+
+.start-menu-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 400px;
+    border: 5px solid black;
+    background-color: #e0e0e0;
+    z-index: 10000;
+}
+
+.start-menu-title-container {
+    width: 100%;
+    height: 15%;
+    border-bottom: 5px solid black;
+    font-size: 1.5rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.start-menu-description {
+    width: 100%;
+    height: 35%;
+    border-bottom: 5px solid black;
+    font-size: 0.9rem;
+    line-height: 19px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    font-weight: 500;
+}
+
+.start-menu-start-button {
+    width: 100%;
+    height: 24%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-menu-start-button-text {
+    width: 90%;
+    height: 75%;
+    border: 3px solid black;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.start-menu-start-button-text:hover {
+    border: 4px solid black;
+    background-color: #FAFAFA;
+}
+
+.start-menu-back-button {
+    width: 100%;
+    height: 26%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 5px solid black;
+}
+
+.start-menu-back-button-text {
+    width: 90%;
+    height: 75%;
+    border: 3px solid black;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.start-menu-back-button-text:hover {
+    border: 4px solid black;
+    background-color: #FAFAFA;
+}
+
+.end-menu-container {
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    border: 5px solid black;
+    background-color: #e0e0e0;
+    z-index: 10001;
+}
+
+.end-menu-title-container {
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    line-height: 55px;
+    font-size: 1.5rem;
+    border-bottom: 5px solid black;
+    font-weight: 500;
+}
+
+.end-menu-result-container {
+    width: 100%;
+    height: 140px;
+    border-bottom: 5px solid black;
+    display: flex;
+}
+
+.end-menu-result-text {
+    width: 40%;
+    height: 100%;
+    text-align: center;
+    line-height: 130px;
+    font-size: 1.3rem;
+    border-right: 5px solid black;
+    font-weight: 500;
+}
+
+.end-menu-result-point-text {
+    width: 60%;
+    height: 100%;
+    font-size: 2.5rem;
+    font-weight: 500;
+    text-align: center;
+    line-height: 130px;
+    color: #66e616;
+}
+
+
+.end-menu-restart {
+    width: 100%;
+    height: 85px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 5px solid black;
+}
+
+.end-menu-restart-text {
+    width: 85%;
+    height: 75%;
+    text-align: center;
+    line-height: 50px;
+    font-size: 1.3rem;
+    font-weight: 500;
+    border: 3px solid black;
+    cursor: pointer;
+}
+
+.end-menu-restart-text:hover {
+    border: 4px solid black;
+    background-color: #FAFAFA;
+}
+
+.end-menu-game-over {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.end-menu-game-over-text {
+    width: 85%;
+    height: 75%;
+    text-align: center;
+    line-height: 50px;
+    font-size: 1.3rem;
+    font-weight: 500;
+    border: 3px solid black;
+    cursor: pointer;
+}
+
+.end-menu-game-over-text:hover {
+    border: 4px solid black;
+    background-color: #FAFAFA;
+}
+
+.game-container {
+    position: relative;
+    width: 100%;
+    height: 73%;
+    background-color: #bdbdbd;
+    background-image: url('image/background.jpg');
+    background-size: cover;
+}
+
+.character {
+    position: absolute;
+    bottom: 0%;
+    left: 1%;
+    z-index: 100;
+    width: 15%;
+    height: auto; /* height: 150px; */
+    transition-property: bottom;
+    transition-timing-function: ease;
+}
+
+.jump-animation-start { bottom: 100px; }
+.jump-animation-end { bottom: 0%; }
+.super-jump-animation-start { bottom: 170px; }
+.super-jump-animation-end { bottom: 0%; }
+
+.button-container {
+    width: 100%;
+    height: 27%;
+    background-color: lightskyblue;
+    border-top: 5px solid black;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.button {
+    width: 23%;
+    height: 85%;
+    border: 5px solid orange;
+}
+
+.button#back-button::after {
+    content: "\f104";
+    font-family: FontAwesome;
+    color: black;
+    font-size: 3.5rem;
+}
+
+.button#front-button::after {
+    content: "\f105";
+    font-family: FontAwesome;
+    color: black;
+    font-size: 3.5rem;
+}
+
+.button#up-button::after {
+    content: "\f106";
+    font-family: FontAwesome;
+    color: black;
+    font-size: 3.5rem;
+}
+
+.button#double-up-button::after {
+    content: "\f102";
+    font-family: FontAwesome;
+    color: black;
+    font-size: 3.5rem;
+}
+
+.item {
+    width: 90px;
+    height: 90px;
+}
+
+.item-text-plus {
+    position: absolute;
+    /* position: absolute 인 경우 텍스트 가운데 정렬 방법 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.7rem;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    color: #76FF03;
+    padding: 0.25rem;
+}
+
+.item-text-minus {
+    position: absolute;
+    /* position: absolute 인 경우 텍스트 가운데 정렬 방법 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.7rem;
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    color: #FF6F00;
+    padding: 0.25rem;
+}
+
+/*
+.item-border-line {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 54px;
+    border: 1px solid #bdbdbd;
+}
+*/
+
+.gun01 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/gun01.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 1s;
+    transition-timing-function: linear;
+}
+
+.pirate-ship01 {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/pirate-ship01.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 3s;
+    transition-timing-function: linear;
+}
+
+.sword01 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/sword01.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 5s;
+    transition-timing-function: linear;
+}
+
+.rum01 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/rum01.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 8s;
+    transition-timing-function: linear;
+}
+
+.telescope {
+    position: absolute;
+    top: 243px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/telescope.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 8.5s;
+    transition-timing-function: linear;
+}
+
+.treasure01 {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/treasure01.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 9.2s;
+    transition-timing-function: linear;
+}
+
+.map01 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/map01.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 12.2s;
+    transition-timing-function: linear;
+}
+
+.gallows01 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/gallows01.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 12.7s;
+    transition-timing-function: linear;
+}
+
+.cannon01 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/cannon01.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 13.2s;
+    transition-timing-function: linear;
+}
+
+.bomb01 {
+    position: absolute;
+    top: 243px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/bomb01.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 16.2s;
+    transition-timing-function: linear;
+}
+
+.pirate01 {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/pirate01.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 16.2s;
+    transition-timing-function: linear;
+}
+
+.key01 {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/key01.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 18.2s;
+    transition-timing-function: cubic-bezier(0.84,-0.01, 0.83, 0.39);
+}  
+
+.bow-arrow01 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/bow-arrow.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 19.2s;
+    transition-timing-function: cubic-bezier(0.84,-0.01, 0.83, 0.39);
+} 
+
+.crown01 {
+    position: absolute;
+    top: 243px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/crown.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 20.2s;
+    transition-timing-function: cubic-bezier(0.84,-0.01, 0.83, 0.39);
+} 
+
+.cannon02 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/cannon02.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 23.2s;
+    transition-timing-function: linear;
+} 
+
+.bomb02 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/bomb02.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 23.7s;
+    transition-timing-function: linear;
+} 
+
+.kraken01 {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/kraken.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 25.7s;
+    transition-timing-function: linear;
+} 
+
+.gun02 {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/gun02.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 26.2s;
+    transition-timing-function: linear;
+} 
+
+.map02 {
+    position: absolute;
+    top: 243px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/map02.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 28.7s;
+    transition-timing-function: linear;
+} 
+
+.skeleton {
+    position: absolute;
+    top: 243px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/skeleton.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 29s;
+    transition-timing-function: linear;
+} 
+
+.key02 {
+    position: absolute;
+    top: 243px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/key02.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 30s;
+    transition-timing-function: linear;
+} 
+
+.dragon01 {
+    position: absolute;
+    top: 243px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/dragon.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 30.3s;
+    transition-timing-function: linear;
+} 
+
+.bomb03 {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/bomb03.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 32.2s;
+    transition-timing-function: linear;
+} 
+
+.bomb04 {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/bomb03.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 32.7s;
+    transition-timing-function: linear;
+} 
+
+.bomb05 {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/bomb03.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 33.2s;
+    transition-timing-function: linear;
+} 
+
+.binoculars {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/binoculars.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 33.7s;
+    transition-timing-function: linear;
+} 
+
+
+.cannon03 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/cannon03.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 34.2s;
+    transition-timing-function: linear;
+} 
+
+
+.treasure02 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/treasure02.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 34.7s;
+    transition-timing-function: linear;
+} 
+
+.cup {
+    position: absolute;
+    top: 243px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/cup.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 37.7s;
+    transition-timing-function: cubic-bezier(0.84,-0.01, 0.83, 0.39);
+} 
+
+.book01 {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/book.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 39.2s;
+    transition-timing-function: linear;
+} 
+
+.bomb06 {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/bomb04.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 39.5s;
+    transition-timing-function: linear;
+} 
+
+.bomb07 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/bomb01.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 40s;
+    transition-timing-function: linear;
+} 
+
+.bomb08 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/bomb01.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 40.3s;
+    transition-timing-function: linear;
+} 
+
+.bomb09 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/bomb01.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 40.6s;
+    transition-timing-function: linear;
+} 
+
+.bomb10 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/bomb01.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 40.9s;
+    transition-timing-function: linear;
+} 
+
+.bomb11 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/bomb01.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 41.2s;
+    transition-timing-function: linear;
+} 
+
+.diamond-ring {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/diamond-ring.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 43.2s;
+    transition-timing-function: linear;
+} 
+
+.coin01 {
+    position: absolute;
+    top: 115px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/coin01.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 43.5s;
+    transition-timing-function: linear;
+} 
+
+.axe01 {
+    position: absolute;
+    top: 235px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/axe01.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 43.8s;
+    transition-timing-function: linear;
+} 
+
+.diamond {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/diamond.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 44.1s;
+    transition-timing-function: linear;
+} 
+
+.harp {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/harp.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 44.4s;
+    transition-timing-function: linear;
+} 
+
+.treasure03 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/treasure03.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 44.7s;
+    transition-timing-function: linear;
+} 
+
+.axe02 {
+    position: absolute;
+    top: 243px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/axe02.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 45s;
+    transition-timing-function: linear;
+} 
+
+.navy01 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/navy.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 45.3s;
+    transition-timing-function: linear;
+} 
+
+.gun03 {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/gun03.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 45.6s;
+    transition-timing-function: linear;
+} 
+
+.kraken02 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/kraken.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 45.9s;
+    transition-timing-function: linear;
+} 
+
+.bomb12 {
+    position: absolute;
+    top: 243px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/bomb04.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 46.9s;
+    transition-timing-function: linear;
+} 
+
+.treasure04 {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/treasure04.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 46.9s;
+    transition-timing-function: linear;
+} 
+
+.bomb13 {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/bomb02.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 47.7s;
+    transition-timing-function: cubic-bezier(0.84,-0.01, 0.83, 0.39);
+}
+
+.bomb14 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/bomb02.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 48.7s;
+    transition-timing-function: cubic-bezier(0.84,-0.01, 0.83, 0.39);
+}
+
+.sword02 {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/sword02.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 49.7s;
+    transition-timing-function: cubic-bezier(0.84,-0.01, 0.83, 0.39);
+}
+
+.bomb15 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/bomb02.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 50.7s;
+    transition-timing-function: cubic-bezier(0.84,-0.01, 0.83, 0.39);
+}
+
+.bomb16 {
+    position: absolute;
+    top: 243px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/bomb02.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 51.2s;
+    transition-timing-function: linear;
+}
+
+.wanted {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/wanted.png');
+    background-size: cover;
+    transition-duration: 3s;
+    transition-property: all;
+    transition-delay: 51.7s;
+    transition-timing-function: cubic-bezier(0.84,-0.01, 0.83, 0.39);
+}
+
+.bomb17 {
+    position: absolute;
+    top: 243px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/bomb02.png');
+    background-size: cover;
+    transition-duration: 2s;
+    transition-property: all;
+    transition-delay: 53.1s;
+    transition-timing-function: linear;
+}
+
+.bomb18 {
+    position: absolute;
+    top: 243px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/bomb03.png');
+    background-size: cover;
+    transition-duration: 2.5s;
+    transition-property: all;
+    transition-delay: 55.8s;
+    transition-timing-function: linear;
+}
+
+.gallows02 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/gallows02.png');
+    background-size: cover;
+    transition-duration: 2.5s;
+    transition-property: all;
+    transition-delay: 55.8s;
+    transition-timing-function: linear;
+}
+
+.compass {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/compass.png');
+    background-size: cover;
+    transition-duration: 2.5s;
+    transition-property: all;
+    transition-delay: 55.8s;
+    transition-timing-function: linear;
+}
+
+.treasure05 {
+    position: absolute;
+    top: 243px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/treasure05.png');
+    background-size: cover;
+    transition-duration: 2.5s;
+    transition-property: all;
+    transition-delay: 56.2s;
+    transition-timing-function: linear;
+}
+
+.rum02 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/rum02.png');
+    background-size: cover;
+    transition-duration: 2.5s;
+    transition-property: all;
+    transition-delay: 56.2s;
+    transition-timing-function: linear;
+}
+
+.hook {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/hook.png');
+    background-size: cover;
+    transition-duration: 2.5s;
+    transition-property: all;
+    transition-delay: 56.2s;
+    transition-timing-function: linear;
+}
+
+.gun04 {
+    position: absolute;
+    top: 243px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/gun01.png');
+    background-size: cover;
+    transition-duration: 2.5s;
+    transition-property: all;
+    transition-delay: 56.6s;
+    transition-timing-function: linear;
+}
+
+.coin02 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/coin02.png');
+    background-size: cover;
+    transition-duration: 2.5s;
+    transition-property: all;
+    transition-delay: 56.6s;
+    transition-timing-function: linear;
+}
+
+.dragon02 {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/dragon.png');
+    background-size: cover;
+    transition-duration: 2.5s;
+    transition-property: all;
+    transition-delay: 56.6s;;
+    transition-timing-function: linear;
+}
+
+.map03 {
+    position: absolute;
+    top: 243px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/map03.png');
+    background-size: cover;
+    transition-duration: 2.5s;
+    transition-property: all;
+    transition-delay: 57s;
+    transition-timing-function: linear;
+}
+
+.cannon04 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/cannon02.png');
+    background-size: cover;
+    transition-duration: 2.5s;
+    transition-property: all;
+    transition-delay: 57s;
+    transition-timing-function: linear;
+}
+
+.treasure06 {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/treasure01.png');
+    background-size: cover;
+    transition-duration: 2.5s;
+    transition-property: all;
+    transition-delay: 57s;
+    transition-timing-function: linear;
+}
+
+.crown02 {
+    position: absolute;
+    top: 243px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/crown.png');
+    background-size: cover;
+    transition-duration: 2.5s;
+    transition-property: all;
+    transition-delay: 57.4s;
+    transition-timing-function: linear;
+}
+
+.book02{
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/book.png');
+    background-size: cover;
+    transition-duration: 2.5s;
+    transition-property: all;
+    transition-delay: 57.4s;
+    transition-timing-function: linear;
+}
+
+.pirate-ship03 {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/pirate-ship01.png');
+    background-size: cover;
+    transition-duration: 2.5s;
+    transition-property: all;
+    transition-delay: 57.4s;
+    transition-timing-function: linear;
+}
+
+.beer {
+    position: absolute;
+    top: 243px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/beer.png');
+    background-size: cover;
+    transition-duration: 2.5s;
+    transition-property: all;
+    transition-delay: 57.8s;
+    transition-timing-function: linear;
+}
+
+.bow-arrow02 {
+    position: absolute;
+    top: 110px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/bow-arrow.png');
+    background-size: cover;
+    transition-duration: 2.5s;
+    transition-property: all;
+    transition-delay: 57.8s;
+    transition-timing-function: linear;
+}
+
+.navy02 {
+    position: absolute;
+    top: 15px;
+    left: 650px;
+    z-index: 1;
+    background-image: url('image/navy.png');
+    background-size: cover;
+    transition-duration: 2.5s;
+    transition-property: all;
+    transition-delay: 57.8s;
+    transition-timing-function: linear;
+}
+
+.move-item { left: -100px; }
+

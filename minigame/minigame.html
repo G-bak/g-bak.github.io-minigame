@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>러닝게임</title>
+        <meta name="description" content="웹버전 미니게임"/>
+        <meta name="keywords" content="미니게임"/>
+        <meta name="author" content="G.bak"/>
+        <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+            integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"/>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+            integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"/>
+        <link rel="stylesheet" href="style.css"/>
+        <!-- 구글 폰트 -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossorigin="crossorigin">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Dokdo&family=Noto+Sans+KR:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Orbit&family=Orbitron:wght@400..900&display=swap"
+            rel="stylesheet">
+    </head>
+    <body>
+        <section>
+            <div class="inner">
+                <div class="start-menu-container">
+                    <div class="start-menu-title-container">조작 설명</div>
+                    <div class="start-menu-description">
+                        <div>' ← ' = 뒤로 이동</div>
+                        <div>' → ' = 앞으로 이동</div>
+                        <div>' ↑ ' = 점프</div>
+                        <div>' ↟ ' = 슈퍼 점프</div>
+                        <div>다시 시작 = F5</div>
+                    </div>
+                    <div class="start-menu-start-button">
+                        <button type="button" class="start-menu-start-button-text">게임시작</button>
+                    </div>
+                    <div class="start-menu-back-button">
+                        <button type="button" class="start-menu-back-button-text">돌아가기</button>
+                    </div>
+                </div>
+                <div class="end-menu-container">
+                    <div class="end-menu-title-container">게임 결과</div>
+                    <div class="end-menu-result-container">
+                        <div class="end-menu-result-text">점수</div>
+                        <div class="end-menu-result-point-text"></div>
+                    </div>
+                    <div class="end-menu-restart">
+                        <button type="button" class="end-menu-restart-text">한판더</button>
+                    </div>
+                    <div class="end-menu-game-over">
+                        <button type="button" class="end-menu-game-over-text">게임종료</button>
+                    </div>
+                </div>
+                <div class="game-container">
+                    <!-- 캐릭터 요소 -->
+                    <img class="character" src="image/character.png" alt="character-Loopy"></img>
+                    <!-- 아이템 요소 -->
+                    <div class="item gun01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+1</div>
+                        </div>
+                    </div>
+                    <div class="item pirate-ship01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item sword01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+1</div>
+                        </div>
+                    </div>
+                    <div class="item rum01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+2</div>
+                        </div>
+                    </div>
+                    <div class="item telescope">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+1</div>
+                        </div>
+                    </div>
+                    <div class="item treasure01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item map01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+2</div>
+                        </div>
+                    </div>
+                    <div class="item gallows01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+1</div>
+                        </div>
+                    </div>
+                    <div class="item cannon01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+1</div>
+                        </div>
+                    </div>
+                    <div class="item pirate01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb01">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item key01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item bow-arrow01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item crown01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item cannon02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+1</div>
+                        </div>
+                    </div>
+                    <div class="item bomb02">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item kraken01">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-5</div>
+                        </div>
+                    </div>
+                    <div class="item gun02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item map02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+2</div>
+                        </div>
+                    </div>
+                    <div class="item skeleton">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-5</div>
+                        </div>
+                    </div>
+                    <div class="item key02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item dragon01">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-5</div>
+                        </div>
+                    </div>
+                    <div class="item bomb03">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb04">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb05">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item binoculars">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item cannon03">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item treasure02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item cup">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item book01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+2</div>
+                        </div>
+                    </div>
+                    <div class="item bomb06">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb07">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb08">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb09">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb10">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb11">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item diamond-ring">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item coin01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item axe01">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item diamond">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item harp">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item treasure03">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item axe02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item navy01">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-10</div>
+                        </div>
+                    </div>
+                    <div class="item gun03">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+1</div>
+                        </div>
+                    </div>
+                    <div class="item kraken02">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-5</div>
+                        </div>
+                    </div>
+                    <div class="item bomb12">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item treasure04">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item bomb13">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb14">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item sword02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb15">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb16">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item wanted">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb17">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item bomb18">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-3</div>
+                        </div>
+                    </div>
+                    <div class="item gallows02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+1</div>
+                        </div>
+                    </div>
+                    <div class="item compass">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item treasure05">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item rum02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+2</div>
+                        </div>
+                    </div>
+                    <div class="item hook">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item gun04">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+1</div>
+                        </div>
+                    </div>
+                    <div class="item coin02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item dragon02">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-5</div>
+                        </div>
+                    </div>
+                    <div class="item map03">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+2</div>
+                        </div>
+                    </div>
+                    <div class="item cannon04">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item treasure06">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item crown02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item book02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+2</div>
+                        </div>
+                    </div>
+                    <div class="item pirate-ship03">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item beer">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+3</div>
+                        </div>
+                    </div>
+                    <div class="item bow-arrow02">
+                        <div class="item-border-line">
+                            <div class="item-text-plus">+5</div>
+                        </div>
+                    </div>
+                    <div class="item navy02">
+                        <div class="item-border-line">
+                            <div class="item-text-minus">-10</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 캐릭터 이동 버튼 요소 -->
+                <div class="button-container">
+                    <button class="button" id="back-button">
+                        <a id="arrow-left" alt="back"></a>
+                    </button>
+                    <button class="button" id="front-button">
+                        <a id="arrow-right" alt="right"></a>
+                    </button>
+                    <button class="button" id="up-button">
+                        <a id="arrow-up" alt="up"></a>
+                    </button>
+                    <button class="button" id="double-up-button">
+                        <a id="arrow-double-up" alt="double-up"></a>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <script src="script.js"></script>
+    </body>
+</html>

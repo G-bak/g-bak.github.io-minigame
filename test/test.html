@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    <div class="transparent-container">
+        <div class="container">
+                <img class="character" src="character.png">
+                <!-- <img class="character02" src="character.png"> -->
+                <div class="item one">+5</div>
+                <div class="item two">-5</div>
+        </div>
+    </div>
+        <div class="start-menu-container">
+            <div class="start-menu-title-container">조작 설명</div>
+            <div class="start-menu-description">
+                <div>' ← ' = 뒤로 이동</div>
+                <div>' → ' = 앞으로 이동</div>
+                <div>' ↑ ' = 점프</div>
+                <div>' ↟ ' = 슈퍼 점프</div>
+                <div>다시 시작 = F5</div>
+            </div>
+            <div class="start-menu-start-button">
+                <button type="button" class="start-menu-start-button-text">게임시작</button>
+            </div>
+            <div class="start-menu-back-button">
+                <button type="button" class="start-menu-back-button-text">돌아가기</button>
+            </div>
+        </div>
+    
+    <button type="button" id="button-left">왼쪽 이동</button>
+    <button type="button" id="button-right">오른쪽 이동</button>
+    <button type="button" id="button-jump">점프</button>
+    <button type="button" id="button-jump02">슈퍼 점프</button>
+
+    <!-- 게임 결과 화면 -->
+    <div class="end-menu-container">
+        <div class="end-menu-title-container">게임 결과</div>
+        <div class="end-menu-result-container">
+            <div class="end-menu-result-text">〔점수〕</div>
+            <div class="end-menu-result-point-text"></div>
+        </div>
+        <div class="end-menu-restart">
+            <button type="button" class="end-menu-restart-text">한판더</button>
+        </div>
+        <div class="end-menu-game-over">
+            <button type="button" class="end-menu-game-over-text">게임종료</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <meta name="description" content="웹버전 미니게임"/>
+        <meta name="keywords" content="미니게임"/>
+        <meta name="author" content="G.bak"/>
+        <meta
+            name="viewport"
+            content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+            integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"/>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+            integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"/>
+        <link rel="stylesheet" href="style.css"/>
+        <!-- 구글 폰트 -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com"
+            crossorigin="crossorigin">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Dokdo&family=Noto+Sans+KR:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Orbit&family=Orbitron:wght@400..900&display=swap"
+            rel="stylesheet">
+</head>
+<body>
+    <div class="inner-container">
+        <div class="start-menu-container">
+            <div class="start-menu-title-container">조작 설명</div>
+            <div class="start-menu-description">
+                <div>' 방향키(←) ' = 왼쪽으로 이동</div>
+                <div>' 방향키(→) ' = 오른쪽으로 이동</div>
+                <div>' 발사 버튼 ' = 미사일 발사</div>
+                <div>다시 시작 = F5</div>
+            </div>
+            <div class="start-menu-start-button">
+                <button type="button" class="start-menu-start-button-text">게임시작</button>
+            </div>
+            <div class="start-menu-back-button">
+                <button type="button" class="start-menu-back-button-text">돌아가기</button>
+            </div>
+        </div>
+        <div class="end-menu-container">
+            <div class="end-menu-title-container">게임 결과</div>
+            <div class="end-menu-result-container">
+                <div class="end-menu-result-text">결과</div>
+                <div class="end-menu-result-point-text"></div>
+            </div>
+            <div class="end-menu-restart">
+                <button type="button" class="end-menu-restart-text">한판더</button>
+            </div>
+            <div class="end-menu-game-over">
+                <button type="button" class="end-menu-game-over-text">게임종료</button>
+            </div>
+        </div>
+    <div class="inner">
+        <div class="character-container">
+            <div class="missile"><img src="image/missile.png">-100</div>
+            <div class="character">300</div>
+        </div>
+        <!-- 적(Enemy) 요소-->
+        <div class="enemy">1000</div>
+        <!-- 아이템 요소 -->
+        <div class="item one">-100</div>
+        <div class="item two">-100</div>
+        <div class="item three">-100</div>
+        <div class="item four">-100</div>
+        <div class="item five">-100</div>
+        <div class="item six">-100</div>
+        <div class="item seven">-100</div>
+        <div class="item eight">-100</div>
+        <div class="item nine">-100</div>
+        <div class="item ten">-100</div>
+        <div class="item eleven">-100</div>
+        <div class="item twelve">-100</div>
+        <div class="item thirteen">-100</div>
+        <div class="item fourteen">-100</div>
+        <div class="item fifteen">-100</div>
+    </div>
+    <button class="fire-button" type="button"><a id="fire-button"></a></button>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
